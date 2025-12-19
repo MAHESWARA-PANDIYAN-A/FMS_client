@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+body{
+  
+    background-image:url('./assets/bmpimg.jpg') ;
+    background-attachment: fixed;
+    object-fit: contain;
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(25px);
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
