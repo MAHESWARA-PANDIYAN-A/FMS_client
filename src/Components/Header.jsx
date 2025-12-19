@@ -3,8 +3,8 @@ import image from '../assets/bmpimg.jpg'
 import { Link, useNavigate } from 'react-router-dom'
 
 const Header = () => {
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
+    
     const handleLogout = () => {
         localStorage.removeItem('user')
         navigate('/')
