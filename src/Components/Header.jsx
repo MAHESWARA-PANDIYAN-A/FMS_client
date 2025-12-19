@@ -3,9 +3,12 @@ import image from '../assets/bmpimg.jpg'
 import { Link, useNavigate } from 'react-router-dom'
 
 const Header = () => {
+    const navigate = useNavigate()
 
-    const navigate = useNavigate();
-
+    const handleLogout = () => {
+        localStorage.removeItem('user')
+        navigate('/')
+    }
 
     return (
         <div>
@@ -17,13 +20,8 @@ const Header = () => {
 
                 <div className='flex gap-1.5'>
                     <ul className='flex gap-x-5 mr-25'>
-                        <Link to='/'>
-                            <li className='text-2xl font-serif text-gray-300 hover: transition duration-150 hover:scale-120 hover:text-gray-900'>Logout</li>
-                        </Link >
-
+                        <li onClick={handleLogout} className='text-2xl font-serif text-gray-300 hover: transition duration-150 hover:scale-120 hover:text-gray-900 cursor-pointer'>Logout</li>
                     </ul>
-
-
                 </div>
 
             </header>

@@ -5,25 +5,25 @@ import axios from 'axios'
 
 const Signup = () => {
 
-        const [name, setName] = useState('')
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
     const [phone, setPhone] = useState('')
-    const [message,setMessage]= useState('');
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
     const register = async () => {
-        try{
-            const res=await axios.post('http://localhost:5000/bmp/signup',{name,phone,email,pass})
+        try {
+            const res = await axios.post('http://localhost:5000/bmp/signup', { name, phone, email, pass })
             setName('')
             setPhone('')
             setEmail('')
             setPass('')
-            
+
             setMessage(res.data.message)
-            setTimeout(()=>navigate('/login'),1000)
+            setTimeout(() => navigate('/login'), 1000)
             setMessage('')
         }
-        catch(err){
+        catch (err) {
             console.error(err)
         }
     }
