@@ -12,7 +12,7 @@ const Login = () => {
     const login = async (e) => {
         e.preventDefault()
         try {
-            const res = await axios.post('http://localhost:5000/bmp/login', { name, password: pass })
+            const res = await axios.post('https://fms-server-165n.onrender.com/bmp/login', { name, password: pass })
             localStorage.setItem('user', JSON.stringify(res.data))
             setName('')
             setPass('')
@@ -47,7 +47,7 @@ const Login = () => {
                     <div><button type='submit' className='mt-4 w-24 bg-gray-600 text-white p-3 rounded-3xl font-bold cursor-pointer hover:bg-gray-700'>Login</button></div>
                 </form>
                 {message && <p className='text-center mt-3 text-red-600'>{message}</p>}
-                <p className='text-center mt-5'>New User? <a href='/signup' className='text-blue-600 hover:underline'>Sign up</a></p>
+                <p className='text-center mt-5'>New User? <Link to='/signup' className='text-blue-600 hover:underline'>Sign up</Link></p>
             </div>
         </div>
     )

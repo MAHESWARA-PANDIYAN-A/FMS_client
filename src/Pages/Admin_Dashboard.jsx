@@ -21,7 +21,7 @@ const Admin_Dashboard = () => {
 
   const fetchRequests = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/bmp/requests')
+      const res = await axios.get('https://fms-server-165n.onrender.com/bmp/requests')
       setRequests(res.data)
     } catch (err) {
       console.error('Error fetching requests:', err)
@@ -35,7 +35,7 @@ const Admin_Dashboard = () => {
   const handleSubmit = async () => {
     try {
       const user = JSON.parse(localStorage.getItem('user'))
-      await axios.post('http://localhost:5000/bmp/requests', {
+      await axios.post('https://fms-server-165n.onrender.com/bmp/requests', {
         ...formData,
         userId: user._id
       })
@@ -56,7 +56,7 @@ const Admin_Dashboard = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/bmp/requests/${id}/status`, { status })
+      await axios.put(`https://fms-server-165n.onrender.com/bmp/requests/${id}/status`, { status })
       fetchRequests()
     } catch (err) {
       console.error('Error updating status:', err)

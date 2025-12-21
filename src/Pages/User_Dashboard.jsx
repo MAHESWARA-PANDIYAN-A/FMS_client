@@ -24,7 +24,7 @@ const User_Dashboard = () => {
 
     const fetchUserRequests = async (userId) => {
         try {
-            const res = await axios.get(`http://localhost:5000/bmp/requests/user/${userId}`)
+            const res = await axios.get(`https://fms-server-165n.onrender.com/bmp/requests/user/${userId}`)
             setRequests(res.data)
         } catch (err) {
             console.error('Error fetching requests:', err)
@@ -37,7 +37,7 @@ const User_Dashboard = () => {
 
     const handleSubmit = async () => {
         try {
-            await axios.post('http://localhost:5000/bmp/requests', {
+            await axios.post('https://fms-server-165n.onrender.com/bmp/requests', {
                 ...formData,
                 userId: user._id
             })
