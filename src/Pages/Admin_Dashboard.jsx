@@ -122,6 +122,7 @@ const Admin_Dashboard = () => {
                 <th className="border px-4 py-2">Request No</th>
                 <th className="border px-4 py-2">Date</th>
                 <th className="border px-4 py-2">Customer</th>
+                <th className="border px-4 py-2">User</th>
                 <th className="border px-4 py-2">Amount</th>
                 <th className="border px-4 py-2">Plan</th>
                 <th className="border px-4 py-2">Priority</th>
@@ -143,6 +144,7 @@ const Admin_Dashboard = () => {
                     <td className="border px-4 py-2">{item.requestNo}</td>
                     <td className="border px-4 py-2">{new Date(item.date).toLocaleDateString()}</td>
                     <td className="border px-4 py-2">{item.customer}</td>
+                    <td className="border px-4 py-2">{item.userId && typeof item.userId === 'object' ? item.userId.name : (item.userId || item.customer)}</td>
                     <td className="border px-4 py-2">₹{item.amount}</td>
                     <td className="border px-4 py-2">{item.plan}</td>
                     <td className="border px-4 py-2">{item.priority}</td>
