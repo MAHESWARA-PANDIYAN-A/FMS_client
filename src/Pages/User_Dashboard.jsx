@@ -5,7 +5,6 @@ const User_Dashboard = () => {
     const [requests, setRequests] = useState([])
     const [isOpen, setIsOpen] = useState(false)
     const [formData, setFormData] = useState({
-        requestNo: '',
         date: '',
         customer: '',
         amount: '',
@@ -42,7 +41,6 @@ const User_Dashboard = () => {
                 userId: user._id
             })
             setFormData({
-                requestNo: '',
                 date: '',
                 customer: '',
                 amount: '',
@@ -128,8 +126,8 @@ const User_Dashboard = () => {
                                         <td className="border px-4 py-2">{item.priority}</td>
                                         <td className="border px-4 py-2">
                                             <span className={`px-2 py-1 rounded ${item.status === 'Approved' ? 'bg-green-200 text-green-800' :
-                                                    item.status === 'Rejected' ? 'bg-red-200 text-red-800' :
-                                                        'bg-yellow-200 text-yellow-800'
+                                                item.status === 'Rejected' ? 'bg-red-200 text-red-800' :
+                                                    'bg-yellow-200 text-yellow-800'
                                                 }`}>
                                                 {item.status}
                                             </span>
@@ -148,7 +146,6 @@ const User_Dashboard = () => {
                         <div className="bg-white p-6 rounded w-96">
                             <h3 className="text-xl mb-4">Add Investment Request</h3>
 
-                            <input className="border p-2 w-full mb-2" name="requestNo" placeholder="Request No" value={formData.requestNo} onChange={handleChange} />
                             <input className="border p-2 w-full mb-2" type="date" name="date" value={formData.date} onChange={handleChange} />
                             <input className="border p-2 w-full mb-2" name="customer" placeholder="Customer" value={formData.customer} onChange={handleChange} />
                             <input className="border p-2 w-full mb-2" name="amount" placeholder="Amount" value={formData.amount} onChange={handleChange} />
