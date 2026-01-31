@@ -24,7 +24,7 @@ const User_Dashboard = () => {
 
     const fetchUserRequests = async (userId) => {
         try {
-            const res = await axios.get(`https://fms-server-165n.onrender.com/bmp/requests/user/${userId}`)
+            const res = await axios.get(`http://localhost:5000/bmp/requests/user/${userId}`)
             setRequests(res.data)
         } catch (err) {
             console.error('Error fetching requests:', err)
@@ -37,7 +37,7 @@ const User_Dashboard = () => {
 
     const handleSubmit = async () => {
         try {
-            await axios.post('https://fms-server-165n.onrender.com/bmp/requests', {
+            await axios.post('http://localhost:5000/bmp/requests', {
                 ...formData,
                 userId: user._id
             })
@@ -127,11 +127,10 @@ const User_Dashboard = () => {
                                         <td className="border px-4 py-2">{item.plan}</td>
                                         <td className="border px-4 py-2">{item.priority}</td>
                                         <td className="border px-4 py-2">
-                                            <span className={`px-2 py-1 rounded ${
-                                                item.status === 'Approved' ? 'bg-green-200 text-green-800' :
-                                                item.status === 'Rejected' ? 'bg-red-200 text-red-800' :
-                                                'bg-yellow-200 text-yellow-800'
-                                            }`}>
+                                            <span className={`px-2 py-1 rounded ${item.status === 'Approved' ? 'bg-green-200 text-green-800' :
+                                                    item.status === 'Rejected' ? 'bg-red-200 text-red-800' :
+                                                        'bg-yellow-200 text-yellow-800'
+                                                }`}>
                                                 {item.status}
                                             </span>
                                         </td>

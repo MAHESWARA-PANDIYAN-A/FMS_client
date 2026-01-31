@@ -3,6 +3,8 @@ import axios from 'axios'
 
 const Admin_Dashboard = () => {
   const [requests, setRequests] = useState([])
+  const [userCount, setUserCount] = useState(0)
+  const [approvedLoanUsers, setApprovedLoanUsers] = useState(0)
   const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState({
     requestNo: '',
@@ -17,12 +19,27 @@ const Admin_Dashboard = () => {
 
   useEffect(() => {
     fetchRequests()
+    fetchUserCount()
   }, [])
+
+  const fetchUserCount = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000/bmp/users/count')
+      setUserCount(res.data.count)
+    } catch (err) {
+      console.error('Error fetching user count:', err)
+    }
+  }
 
   const fetchRequests = async () => {
     try {
-      const res = await axios.get('https://fms-server-165n.onrender.com/bmp/requests')
+      const res = await axios.get('http://localhost:5000/bmp/requests')
       setRequests(res.data)
+
+      // Calculate unique users with approved loans (by customer name)
+      const approvedRequests = res.data.filter(req => req.status === 'Approved')
+      const uniqueCustomers = new Set(approvedRequests.map(req => req.customer))
+      setApprovedLoanUsers(uniqueCustomers.size)
     } catch (err) {
       console.error('Error fetching requests:', err)
     }
@@ -35,7 +52,7 @@ const Admin_Dashboard = () => {
   const handleSubmit = async () => {
     try {
       const user = JSON.parse(localStorage.getItem('user'))
-      await axios.post('https://fms-server-165n.onrender.com/bmp/requests', {
+      await axios.post('http://localhost:5000/bmp/requests', {
         ...formData,
         userId: user._id
       })
@@ -56,7 +73,7 @@ const Admin_Dashboard = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.put(`https://fms-server-165n.onrender.com/bmp/requests/${id}/status`, { status })
+      await axios.put(`http://localhost:5000/bmp/requests/${id}/status`, { status })
       fetchRequests()
     } catch (err) {
       console.error('Error updating status:', err)
@@ -80,13 +97,13 @@ const Admin_Dashboard = () => {
         {/* Stats Cards (YOUR UI — unchanged) */}
         <div className="flex justify-between w-full max-w-5xl m-7 bg-gray-600 rounded-3xl p-4">
           <div className="flex flex-col items-center bg-gray-300 h-40 w-64 rounded-3xl">
-            <h4 className="text-2xl p-4">Total Users</h4>
-            <p className="text-3xl">0</p>
+            <h4 className="text-2xl p-4">Customers Count</h4>
+            <p className="text-3xl">{approvedLoanUsers}</p>
           </div>
 
           <div className="flex flex-col items-center bg-gray-300 h-40 w-64 rounded-3xl">
-            <h4 className="text-2xl p-4">Active Partners</h4>
-            <p className="text-3xl">0</p>
+            <h4 className="text-2xl p-4">Total Users</h4>
+            <p className="text-3xl">{userCount}</p>
           </div>
 
           <div className="flex flex-col items-center bg-gray-300 h-40 w-64 rounded-3xl">
@@ -130,11 +147,10 @@ const Admin_Dashboard = () => {
                     <td className="border px-4 py-2">{item.plan}</td>
                     <td className="border px-4 py-2">{item.priority}</td>
                     <td className="border px-4 py-2">
-                      <span className={`px-2 py-1 rounded ${
-                        item.status === 'Approved' ? 'bg-green-200 text-green-800' :
+                      <span className={`px-2 py-1 rounded ${item.status === 'Approved' ? 'bg-green-200 text-green-800' :
                         item.status === 'Rejected' ? 'bg-red-200 text-red-800' :
-                        'bg-yellow-200 text-yellow-800'
-                      }`}>
+                          'bg-yellow-200 text-yellow-800'
+                        }`}>
                         {item.status}
                       </span>
                     </td>

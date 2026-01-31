@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 
 const Login = () => {
@@ -12,19 +12,19 @@ const Login = () => {
     const login = async (e) => {
         e.preventDefault()
         try {
-            const res = await axios.post('https://fms-server-165n.onrender.com/bmp/login', { name, password: pass })
+            const res = await axios.post('http://localhost:5000/bmp/login', { name, password: pass })
             localStorage.setItem('user', JSON.stringify(res.data))
             setName('')
             setPass('')
             setMessage('Login successful!')
-            
+
             // Navigate based on role
             if (res.data.role === 'Admin') {
                 setTimeout(() => navigate('/admin_Dashboard'), 1000)
             } else {
                 setTimeout(() => navigate('/user_Dashboard'), 1000)
             }
-            
+
             setTimeout(() => setMessage(''), 1000)
         }
         catch (err) {

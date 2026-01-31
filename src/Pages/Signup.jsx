@@ -14,7 +14,7 @@ const Signup = () => {
     const register = async (e) => {
         e.preventDefault()
         try {
-            const res = await axios.post('https://fms-server-165n.onrender.com/bmp/signup', { name, phone, email, password: pass })
+            const res = await axios.post('http://localhost:5000/bmp/signup', { name, phone, email, password: pass })
             setName('')
             setPhone('')
             setEmail('')
